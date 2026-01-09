@@ -13,7 +13,6 @@ public partial class CreateReservationPage : ContentPage
     {
         ErrorLabel.IsVisible = false;
 
-        
         if (ActivityPicker.SelectedItem == null)
         {
             ShowError("Please select an activity.");
@@ -37,7 +36,6 @@ public partial class CreateReservationPage : ContentPage
 
         DataStore.Reservations.Add(reservation);
 
-
         await DisplayAlert(
             "Reservation Saved",
             $"Activity: {reservation.ActivityName}\n" +
@@ -47,10 +45,29 @@ public partial class CreateReservationPage : ContentPage
             "OK"
         );
 
+        StartNotificationTimer(reservation);
+
         ActivityPicker.SelectedItem = null;
         DurationEntry.Text = string.Empty;
+    }
 
+    private void StartNotificationTimer(Reservation reservation)
+    {
+        Dispatcher.StartTimer(TimeSpan.FromSeconds(30), () =>
+        {
+            MainThread.BeginInvokeOnMainThread(async () =>
+            {
+                await DisplayAlert(
+                    "Reservation Reminder",
+                    $"Your reservation for {reservation.ActivityName} is coming up!\n" +
+                    $"Date: {reservation.Date:d}\n" +
+                    $"Start Time: {reservation.StartTime}",
+                    "OK"
+                );
+            });
 
+            return false;
+        });
     }
 
     private void ShowError(string message)
