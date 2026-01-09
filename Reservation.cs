@@ -10,7 +10,7 @@ namespace MauiArcade_LazarDaria_MagureanPatricia;
 public class Reservation
 {
     [Required]
-    public string ActivityName { get; set; }
+    public string ActivityName { get; set; } = string.Empty;
 
     [Required]
     public DateTime Date { get; set; }
@@ -20,4 +20,6 @@ public class Reservation
 
     [Range(30, 120)]
     public int DurationMinutes { get; set; }
+
+    public decimal TotalPrice { get; set; }
 }

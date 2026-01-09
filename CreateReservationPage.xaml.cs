@@ -35,7 +35,9 @@ public partial class CreateReservationPage : ContentPage
             DurationMinutes = duration
         };
 
-        // save simulation
+        DataStore.Reservations.Add(reservation);
+
+
         await DisplayAlert(
             "Reservation Saved",
             $"Activity: {reservation.ActivityName}\n" +
@@ -45,9 +47,10 @@ public partial class CreateReservationPage : ContentPage
             "OK"
         );
 
-        // Reset form
         ActivityPicker.SelectedItem = null;
         DurationEntry.Text = string.Empty;
+
+
     }
 
     private void ShowError(string message)

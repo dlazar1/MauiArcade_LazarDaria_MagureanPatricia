@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiArcade_LazarDaria_MagureanPatricia.ReservationsPage"
+             Title="Reservations">
+
+    <VerticalStackLayout Padding="20" Spacing="12">
+        <Label Text="My Reservations"
+               FontSize="22"
+               FontAttributes="Bold"
+               HorizontalOptions="Center" />
+
+        <CollectionView x:Name="ReservationsCollection"
+                        SelectionMode="Single"
+                        SelectionChanged="OnReservationSelected">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame Padding="12" Margin="5" CornerRadius="12" BorderColor="LightGray">
+                        <VerticalStackLayout Spacing="6">
+                            <Label Text="{Binding ActivityName}" FontSize="18" FontAttributes="Bold" />
+                            <Label Text="{Binding Date, StringFormat='Date: {0:dd/MM/yyyy}'}" />
+                            <Label Text="{Binding StartTime, StringFormat='Start: {0}'}" />
+                            <Label Text="{Binding DurationMinutes, StringFormat='Duration: {0} min'}" />
+                            <Label Text="{Binding TotalPrice, StringFormat='Total: {0} lei'}"
+                                   FontAttributes="Bold" />
+                        </VerticalStackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Text="Add sample reservation"
+                Clicked="OnAddSampleClicked" />
+    </VerticalStackLayout>
+
+</ContentPage>

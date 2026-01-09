@@ -4,7 +4,8 @@
              x:Class="MauiArcade_LazarDaria_MagureanPatricia.PricesPage"
              Title="Prices">
 
-    <VerticalStackLayout Padding="20" Spacing="15">
+    <VerticalStackLayout Padding="20" Spacing="12">
+
         <Label Text="Prices per Activity"
                FontSize="22"
                FontAttributes="Bold"
@@ -13,21 +14,29 @@
         <CollectionView x:Name="PricesCollection">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <Frame BorderColor="LightGray"
-                           CornerRadius="10"
-                           Padding="10"
-                           Margin="5">
-                        <VerticalStackLayout>
+                    <Frame Padding="12"
+                           Margin="6"
+                           CornerRadius="12"
+                           BorderColor="LightGray">
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <!-- Activity name -->
                             <Label Text="{Binding ActivityName}"
                                    FontSize="18"
                                    FontAttributes="Bold" />
-                            <Label Text="{Binding PriceText}"
-                                   FontSize="16" />
-                        </VerticalStackLayout>
+
+                            <!-- Price -->
+                            <Label Grid.Column="1"
+                                   Text="{Binding PricePerHour, StringFormat='{0} lei / hour'}"
+                                   FontSize="16"
+                                   TextColor="DarkGreen" />
+                        </Grid>
+
                     </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
     </VerticalStackLayout>
 
 </ContentPage>
