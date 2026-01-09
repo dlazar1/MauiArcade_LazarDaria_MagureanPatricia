@@ -1,31 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiArcade_LazarDaria_MagureanPatricia.MainPage">
+             x:Class="MauiArcade_LazarDaria_MagureanPatricia.MainPage"
+             Title="Home">
 
     <ScrollView>
-        <VerticalStackLayout
-            Padding="30,0"
-            Spacing="25">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight" />
+        <VerticalStackLayout Padding="20" Spacing="20">
 
             <Label Text="Arcade Booking System"
-           FontSize="24"
-           FontAttributes="Bold"
-           HorizontalOptions="Center"/>
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
 
-            <Button Text="View Activities"
-            Clicked="OnActivitiesClicked"/>
+            <Label Text="Book your favorite activities easily"
+                   FontSize="16"
+                   TextColor="Gray"
+                   HorizontalOptions="Center" />
 
-            <Button Text="View Prices"
-            Clicked="OnPricesClicked"/>
+            <Frame CornerRadius="20"
+                   Padding="0"
+                   HasShadow="True">
+                <Image Source="arcade.jpg"
+                       Aspect="AspectFill"
+                       HeightRequest="250" />
+            </Frame>
 
-            <Button Text="Create Reservation"
-            Clicked="OnCreateReservationClicked"/>
+            <Label Text="Available activities:"
+                   FontSize="18"
+                   FontAttributes="Bold" />
+
+            <Label Text="• Bowling
+• Billiard
+• Table Tennis
+• Air Hockey
+• Dance Machine
+• Indoor Paintball"
+                   FontSize="16" />
+
         </VerticalStackLayout>
     </ScrollView>
 
