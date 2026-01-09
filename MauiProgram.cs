@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using MauiArcade_LazarDaria_MagureanPatricia;
+using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
+
+
+
 
 namespace MauiArcade_LazarDaria_MagureanPatricia
 {
@@ -9,14 +14,19 @@ namespace MauiArcade_LazarDaria_MagureanPatricia
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+            builder.UseLocalNotification();
+
+            
+
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

@@ -1,4 +1,5 @@
-using MauiArcade_LazarDaria_MagureanPatricia;
+using Plugin.LocalNotification;
+
 
 namespace MauiArcade_LazarDaria_MagureanPatricia;
 
@@ -8,6 +9,15 @@ public partial class CreateReservationPage : ContentPage
     {
         InitializeComponent();
     }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        await LocalNotificationCenter.Current.RequestNotificationPermission();
+    }
+
+
 
     private async void OnSaveClicked(object sender, EventArgs e)
     {
@@ -36,43 +46,44 @@ public partial class CreateReservationPage : ContentPage
 
         DataStore.Reservations.Add(reservation);
 
+        var total = DataStore.CalculateTotal(
+            reservation.ActivityName,
+            reservation.DurationMinutes
+        );
+
+        var notification = new NotificationRequest
+        {
+            NotificationId = new Random().Next(1000, 9999),
+            Title = "Reservation Reminder",
+            Description =
+                $"You reserved {reservation.ActivityName}\n" +
+                $"Duration: {reservation.DurationMinutes} min\n" +
+                $"Total: {total} RON",
+            Schedule = new NotificationRequestSchedule
+            {
+                NotifyTime = DateTime.Now.AddSeconds(30)
+            }
+        };
+
+        await LocalNotificationCenter.Current.Show(notification);
+
         await DisplayAlert(
             "Reservation Saved",
             $"Activity: {reservation.ActivityName}\n" +
-            $"Date: {reservation.Date:d}\n" +
-            $"Start: {reservation.StartTime}\n" +
-            $"Duration: {reservation.DurationMinutes} minutes",
+            $"Total price: {total} RON\n\n" +
+            $" You will be notified in 30 seconds.",
             "OK"
         );
-
-        StartNotificationTimer(reservation);
 
         ActivityPicker.SelectedItem = null;
         DurationEntry.Text = string.Empty;
     }
 
-    private void StartNotificationTimer(Reservation reservation)
-    {
-        Dispatcher.StartTimer(TimeSpan.FromSeconds(30), () =>
-        {
-            MainThread.BeginInvokeOnMainThread(async () =>
-            {
-                await DisplayAlert(
-                    "Reservation Reminder",
-                    $"Your reservation for {reservation.ActivityName} is coming up!\n" +
-                    $"Date: {reservation.Date:d}\n" +
-                    $"Start Time: {reservation.StartTime}",
-                    "OK"
-                );
-            });
-
-            return false;
-        });
-    }
 
     private void ShowError(string message)
     {
         ErrorLabel.Text = message;
         ErrorLabel.IsVisible = true;
     }
+
 }
